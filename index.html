@@ -21,7 +21,7 @@ body {
 }
 
 .card {
-  position: relative;
+  position: relative; /* ensures No button is inside card */
   background: rgba(0,0,0,0.25);
   padding: 2.5rem;
   border-radius: 20px;
@@ -59,7 +59,7 @@ body {
   font-size: 1rem;
   border-radius: 999px;
   cursor: pointer;
-  position: absolute;
+  position: absolute; /* moves inside the card */
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) scale(1);
@@ -73,7 +73,6 @@ body {
 }
 </style>
 </head>
-  
 <body>
 
 <div class="card">
@@ -82,10 +81,10 @@ body {
 
   <h2>Will you be my Valentine?</h2>
 
-<div class="buttons">
-  <button id="yesBtn">Yes 💘</button>
-  <button id="noBtn">No</button>
-</div>
+  <div class="buttons">
+    <button id="yesBtn">Yes 💘</button>
+    <button id="noBtn">No</button>
+  </div>
 
   <div id="message"></div>
 </div>
@@ -97,6 +96,8 @@ const message = document.getElementById("message");
 
 let noCount = 0;
 let scale = 1;
+let angle = 0;
+const radius = 100; // orbit radius
 
 const messages = [
   "Hmm… that doesn’t seem right 🤔",
@@ -104,14 +105,10 @@ const messages = [
   "Are you sure about that?",
   "The button is losing confidence",
   "I thought you love me",
-  "You're making me sad ! 💔"
+  "You're making me sad! 💔"
 ];
 
-// Orbit parameters
-let angle = 0;
-const radius = 100; // distance from Yes button
-
-// Function to move No button in orbit
+// Function to move No button in orbit inside card
 function orbitAndShrink() {
   scale *= 0.8;
   if (scale < 0.2) scale = 0.2;
@@ -119,11 +116,11 @@ function orbitAndShrink() {
   const card = document.querySelector('.card');
   const cardRect = card.getBoundingClientRect();
 
-  // center relative to the card
+  // center relative to card
   const centerX = cardRect.width / 2;
   const centerY = cardRect.height / 2;
 
-  angle += Math.random() * 60 + 30; // random step
+  angle += Math.random() * 60 + 30;
   const rad = angle * Math.PI / 180;
 
   const x = centerX + radius * Math.cos(rad) - noBtn.offsetWidth / 2;
@@ -142,11 +139,9 @@ function orbitAndShrink() {
   noCount++;
 }
 
-
-// Event listeners for No button
+// Event listeners
 noBtn.addEventListener("mouseover", orbitAndShrink);
 noBtn.addEventListener("click", orbitAndShrink);
-
 
 yesBtn.addEventListener("click", () => {
   document.body.innerHTML = `
@@ -163,15 +158,16 @@ yesBtn.addEventListener("click", () => {
     ">
       <h1>🎉 Yayyyy !! 🎉</h1>
       <h2>You are officially my Valentine</h2>
-      <p>I knew you'd choose wisely😌</p>
-      <p>You may open the box now !! </p>
+      <p>I knew you'd choose wisely 😌</p>
+      <p>You may open the box now!!</p>
       <p>Yes, I have planned and prepared this for a long time</p>
-      <p>I hope it has a more personal touch 😉😉 </p>
-      <p>I love you so much, my dearest Maureen ❤️❤️ </p>
+      <p>I hope it has a more personal touch 😉😉</p>
+      <p>I love you so much, my dearest Maureen ❤️❤️</p>
     </div>
   `;
 });
-  // Background gradient rotation
+
+// Background gradient rotation
 const gradients = [
   'linear-gradient(135deg, #d62828, #f77f9c)',  // Romantic
   'linear-gradient(135deg, #b11226, #ff4d6d)',  // Bold
@@ -182,9 +178,9 @@ let current = 0;
 setInterval(() => {
   current = (current + 1) % gradients.length;
   document.body.style.background = gradients[current];
-}, 4000); // change every 4 seconds
+}, 4000);
 
-  // Glow the Yes button in sync with background change
+// Glow/pulse Yes button in sync
 setInterval(() => {
   yesBtn.style.transform = 'scale(1.2)';
   yesBtn.style.boxShadow = '0 0 20px #ff4d6d, 0 0 40px #ff4d6d';
@@ -193,8 +189,6 @@ setInterval(() => {
     yesBtn.style.boxShadow = '0 0 10px #ff4d6d, 0 0 20px #ff4d6d';
   }, 2000);
 }, 4000);
-
-
 </script>
 
 </body>
