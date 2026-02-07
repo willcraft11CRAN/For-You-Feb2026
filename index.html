@@ -12,11 +12,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  background: linear-gradient(135deg, #d62828, #f77f9c);
+  transition: background 3s ease;
   font-family: 'Segoe UI', sans-serif;
   text-align: center;
   color: white;
   overflow: hidden;
+
 }
 
 .card {
@@ -139,6 +141,19 @@ yesBtn.addEventListener("click", () => {
     </div>
   `;
 });
+  // Background gradient rotation
+const gradients = [
+  'linear-gradient(135deg, #d62828, #f77f9c)',  // Romantic
+  'linear-gradient(135deg, #b11226, #ff4d6d)',  // Bold
+  'linear-gradient(135deg, #c9184a, #ff758f)'   // Classic
+];
+
+let current = 0;
+setInterval(() => {
+  current = (current + 1) % gradients.length;
+  document.body.style.background = gradients[current];
+}, 4000); // change every 4 seconds
+
 </script>
 
 </body>
