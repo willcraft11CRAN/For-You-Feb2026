@@ -113,14 +113,14 @@ noBtn.addEventListener("mouseover", () => {
 noBtn.addEventListener("click", () => {
   // also shrink on click
   noScale *= 0.8;
-  if (noScale < 0.3) noScale = 0.3;
+  if (noScale < 0.01) noScale = 0.01;
   noBtn.style.transform = `scale(${noScale})`;
 
   if (noCount < messages.length) {
     message.textContent = messages[noCount];
     noCount++;
   } else {
-    message.textContent = "You know the answer 😉";
+    message.textContent = "Wellllll....";
   }
 });
 
