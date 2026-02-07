@@ -1,0 +1,145 @@
+diff
+
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Important Question</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+}
+
+.card {
+  background: rgba(0,0,0,0.25);
+  padding: 2.5rem;
+  border-radius: 20px;
+  max-width: 420px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+button {
+  border: none;
+  padding: 12px 26px;
+  font-size: 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  margin: 8px;
+  transition: transform 0.2s ease;
+}
+
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+}
+
+#noBtn {
+  background: white;
+  color: #ff4d6d;
+  position: absolute;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+#message {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  min-height: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>💖 Emergency Relationship Question 💖</h1>
+  <p>This is extremely important and legally binding.</p>
+
+  <h2>Will you be my Valentine?</h2>
+
+  <div>
+    <button id="yesBtn">Yes 💘</button>
+    <button id="noBtn">No</button>
+  </div>
+
+  <div id="message"></div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
+
+let noCount = 0;
+let scale = 1;
+
+const messages = [
+  "Hmm… that doesn’t seem right 🤔",
+  "Strange choice…",
+  "Are you sure about that?",
+  "The button is losing confidence",
+  "It’s getting shy now 😳",
+  "Okay this is just funny 😂"
+];
+
+function moveAndShrink() {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+
+  scale *= 0.8;
+  if (scale < 0.2) scale = 0.2;
+
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
+  noBtn.style.transform = `scale(${scale})`;
+
+  if (noCount < messages.length) {
+    message.textContent = messages[noCount];
+  } else {
+    message.textContent = "The button has accepted its fate.";
+  }
+
+  noCount++;
+}
+
+noBtn.addEventListener("mouseover", moveAndShrink);
+noBtn.addEventListener("click", moveAndShrink);
+
+yesBtn.addEventListener("click", () => {
+  document.body.innerHTML = `
+    <div style="
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      font-family:'Segoe UI', sans-serif;
+      background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
+      color:white;
+      text-align:center;
+    ">
+      <h1>🎉 Correct Answer 🎉</h1>
+      <h2>You are officially my Valentine</h2>
+      <p>I knew you'd choose wisely 😌</p>
+    </div>
+  `;
+});
+</script>
+
+</body>
+</html>
