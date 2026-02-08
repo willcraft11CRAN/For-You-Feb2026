@@ -172,19 +172,21 @@ document.addEventListener("mousemove", chaseCursor);
 yesBtn.addEventListener("click", () => {
   document.body.innerHTML = `
     <div style="
-      height:100vh;
+     height:100vh;
       display:flex;
       justify-content:center;
       align-items:center;
       flex-direction:column;
       font-family:'Segoe UI', sans-serif;
-      background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
-      color:white;
       text-align:center;
+      color:white;
       padding: 2rem;
       box-sizing: border-box;
       max-width: 600px;
       margin: 0 auto;
+      background: linear-gradient(rgba(214,40,40,0.7), rgba(247,127,156,0.7)), 
+                  url('Background_1.jpg') no-repeat center center;
+      background-size: cover;
     ">
       <h1>🎉 Yayyyy !! 🎉</h1>
       <h2> You are officially my Valentine ! </h2>
