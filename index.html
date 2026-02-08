@@ -37,7 +37,7 @@ body {
   gap: 20px;
   margin-top: 20px;
   position: relative;
-  height: 50px; /* Ensure space for No button to bounce */
+  height: 50px; /* space for No button to bounce */
 }
 
 #yesBtn {
@@ -63,7 +63,7 @@ body {
   cursor: pointer;
   z-index: 1;
   transition: top 0.3s ease, left 0.3s ease, transform 0.2s ease;
-  /* NOTE: No absolute initially, starts aligned in flex */
+  /* initially in flex, no absolute */
 }
 
 #message {
@@ -90,4 +90,115 @@ body {
 
 <script>
 const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElement
+const noBtn = document.getElementById("noBtn");
+const message = document.getElementById("message");
+
+const messages = [
+  "Hmm… that doesn’t seem right 🤔",
+  "Strange choice…",
+  "Are you sure about that?",
+  "I thought you love me 💔",
+  "You're making me sad! 😢",
+  "Are you sure?",
+  "What did I do wrong?",
+  "Aren't you curious?"
+];
+
+let noCount = 0;
+let isNoAbsolute = false;
+
+function bounceNo() {
+  const container = noBtn.parentElement;
+
+  // First time: switch to absolute without breaking alignment
+  if (!isNoAbsolute) {
+    const btnRect = noBtn.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    const top = btnRect.top - containerRect.top;
+    const left = btnRect.left - containerRect.left;
+
+    noBtn.style.position = 'absolute';
+    noBtn.style.top = top + 'px';
+    noBtn.style.left = left + 'px';
+
+    isNoAbsolute = true;
+  }
+
+  // container width/height for boundary
+  const maxTop = container.clientHeight - noBtn.offsetHeight;
+  const maxLeft = container.clientWidth - noBtn.offsetWidth;
+
+  const randomTop = Math.random() * maxTop;
+  const randomLeft = Math.random() * maxLeft;
+
+  // quick bounce scale
+  noBtn.style.transform = 'scale(1.2)';
+  setTimeout(() => { noBtn.style.transform = 'scale(1)'; }, 150);
+
+  noBtn.style.top = randomTop + 'px';
+  noBtn.style.left = randomLeft + 'px';
+
+  if (noCount < messages.length) {
+    message.textContent = messages[noCount];
+    noCount++;
+  } else {
+    message.textContent = "Welll.....💔";
+  }
+}
+
+noBtn.addEventListener("mouseover", bounceNo);
+noBtn.addEventListener("click", bounceNo);
+
+yesBtn.addEventListener("click", () => {
+  document.body.innerHTML = `
+    <div style="
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      font-family:'Segoe UI', sans-serif;
+      background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
+      color:white;
+      text-align:center;
+      padding: 2rem;
+      box-sizing: border-box;
+      max-width: 600px;
+      margin: 0 auto;
+    ">
+      <h1>🎉 Yayyyy !! 🎉</h1>
+      <h2> You are officially my Valentine ! </h2>
+      <p> I knew you'd choose wisely 😌 </p>
+      <p> You may open the box now !! </p>
+      <p> Yes, I have planned & prepared this for a long time </p>
+      <p> Though I'm physically far, know that I'll always be with you</p>
+      <p> I love you so much, my dearest Maureen ❤️❤️ </p>
+    </div>
+  `;
+});
+
+// Background gradient rotation
+const gradients = [
+  'linear-gradient(135deg, #d62828, #f77f9c)',
+  'linear-gradient(135deg, #b11226, #ff4d6d)',
+  'linear-gradient(135deg, #c9184a, #ff758f)'
+];
+let current = 0;
+setInterval(() => {
+  current = (current + 1) % gradients.length;
+  document.body.style.background = gradients[current];
+}, 4000);
+
+// Glow/pulse Yes button
+setInterval(() => {
+  yesBtn.style.transform = 'scale(1.2)';
+  yesBtn.style.boxShadow = '0 0 20px #ff4d6d, 0 0 40px #ff4d6d';
+  setTimeout(() => {
+    yesBtn.style.transform = 'scale(1)';
+    yesBtn.style.boxShadow = '0 0 10px #ff4d6d, 0 0 20px #ff4d6d';
+  }, 2000);
+}, 4000);
+</script>
+
+</body>
+</html>
