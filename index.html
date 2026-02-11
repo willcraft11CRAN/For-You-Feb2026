@@ -156,14 +156,6 @@ function chaseCursor(e) {
     noBtn.style.transform = 'scale(1.2)';
     setTimeout(() => { noBtn.style.transform = 'scale(1)'; }, 100);
 
-// No button click
-noBtn.addEventListener("click", () => {
-  if (noCount < messages.length) {
-    message.textContent = messages[noCount];
-    noCount++;
-  } else {
-    message.textContent = "I won't give up that easy ehehe 😏";
-    }
   }
 }
 document.addEventListener("mousemove", chaseCursor);
